@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.api-button {
+  width: 110px;
+  height: 40px;
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
+.api-response {
+  white-space: pre-wrap; /* 改行と空白を保持しつつ折り返す */
+  word-break: break-word; /* 単語の途中でも折り返す */
+  max-width: 40%; /* 横幅を制限して読みやすくする */
+  margin: 20px auto; /* 中央寄せ */
+  line-height: 1.6; /* 行間を広げて読みやすく */
+}
+

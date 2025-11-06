@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './sopass.png';
 import React, { useState } from "react";
 import './App.css';
 
@@ -51,8 +51,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>質問を送信する</h2>
+        <img src={logo} alt="logo" style={{ width: '200px', height: 'auto' }} />
+        <p>AWS Bedrockに聞きたい内容を入力してください。</p>
         <input
           type="text"
           value={inputText}
@@ -60,7 +60,7 @@ function App() {
           placeholder="質問を入力してください"
           style={{ marginRight: "20px", padding: "10px" }}
         />
-        <button onClick={handleClick}>APIを実行</button>
+        <button onClick={handleClick} className="api-button">APIを実行</button>
 
         {loading && <p>読み込み中...</p>}
         {error && <p style={{ color: "red" }}>エラー: {error}</p>}
@@ -70,7 +70,9 @@ function App() {
             <pre>{JSON.stringify(data, null, 2)}</pre>
           </div>
         )}
-        {response && <p>APIの返答: {response}</p>}
+      {response && (
+        <p className="api-response">{response}</p>
+      )}
       </header>
     </div>
   );
