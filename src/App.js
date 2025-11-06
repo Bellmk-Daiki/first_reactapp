@@ -2,72 +2,47 @@ import logo from './logo.svg';
 import React, { useState } from "react";
 import './App.css';
 
-import { SignatureV4 } from "@aws-sdk/signature-v4";
-import { HttpRequest } from "@aws-sdk/protocol-http";
-import { Sha256 } from "@aws-crypto/sha256-browser";
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
-
-
 function App() {
-
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [inputText, setInputText] = useState("こんにちわんこそば"); // 入力テキスト
-  const [response, setResponse] = useState("");   // APIの返答
+  const [inputText, setInputText] = useState("こんにちわんこそば");
+  const [response, setResponse] = useState("");
 
   const handleClick = async () => {
     setLoading(true);
     setError(null);
 
-  const region = "ap-northeast-1";
-  const service = "execute-api";
-  const endpoint = "https://gsdfghasdfgasdy3.execute-api.ap-northeast-1.amazonaws.com/test/";
+    const endpoint = "https://g5c0tc5vy3.execute-api.ap-northeast-1.amazonaws.com/test/";
+    const apikey = "AlP0oXHoy46V8LgHYoavg6rFJBge1VW35jAvbuV9";
 
-  // Cognito認証情報を取得
-  const credentials = await fromCognitoIdentityPool({
-    identityPoolId: "ap-northeast-1:c30e76b3-c92a-43d3-9096-11c090b1ffc6",
-    clientConfig: { region },
-  })();
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apikey
+        },
+        body: JSON.stringify({ question: inputText })
+      });
 
-  // HTTPリクエストを作成
-  const request = new HttpRequest({
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    hostname: new URL(endpoint).hostname,
-    path: new URL(endpoint).pathname,
-    body: JSON.stringify({ question: inputText }),
-  });
+      if (!res.ok) {
+        throw new Error(`API request failed: ${res.status}`);
+      }
 
-  // SigV4署名を付与
-  const signer = new SignatureV4({
-    credentials,
-    region,
-    service,
-    sha256: Sha256,
-  });
+      const result = await res.json();
+      setData(result);
 
-  const signedRequest = await signer.sign(request);
-
-  try {
-    const res = await fetch(endpoint, {
-      method: signedRequest.method,
-      headers: signedRequest.headers,
-      body: signedRequest.body,
-    });
-
-
-    if (!res.ok) {
-      throw new Error("API request failed");
-    }
-
-    const result = await res.json();
-    setData(result); // 全体のJSONを表示
-    setResponse(result.answer); // answerだけ表示
+      // Lambdaのレスポンスが { body: '{"answer":"..."}' } の場合
+      if (result.body) {
+        const parsedBody = JSON.parse(result.body);
+        setResponse(parsedBody.answer);
+      }
 
     } catch (err) {
-      setError(err.message);
+      console.error("Fetch API failed:", err);
+      setError(err.message || String(err));
     } finally {
       setLoading(false);
     }
@@ -76,16 +51,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-
         <img src={logo} className="App-logo" alt="logo" />
-
-        <h1>質問を送信する</h1>
+        <h2>質問を送信する</h2>
         <input
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="質問を入力してください"
-          style={{ marginRight: "10px", padding: "5px" }}
+          style={{ marginRight: "20px", padding: "10px" }}
         />
         <button onClick={handleClick}>APIを実行</button>
 
@@ -98,11 +71,9 @@ function App() {
           </div>
         )}
         {response && <p>APIの返答: {response}</p>}
-
       </header>
     </div>
   );
 }
 
 export default App;
-
