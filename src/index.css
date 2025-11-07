@@ -20,10 +20,13 @@ code {
 }
 
 .api-response {
-  white-space: pre-wrap; /* 改行と空白を保持しつつ折り返す */
-  word-break: break-word; /* 単語の途中でも折り返す */
-  max-width: 40%; /* 横幅を制限して読みやすくする */
-  margin: 20px auto; /* 中央寄せ */
-  line-height: 1.6; /* 行間を広げて読みやすく */
+  white-space: pre-wrap;       /* 改行と空白を保持しつつ折り返す */
+  word-break: break-word;      /* 単語の途中でも折り返す */
+  max-width: 40%;              /* 横幅を制限して読みやすくする */
+  margin: 20px auto;           /* 中央寄せ */
+  line-height: 1.6;            /* 行間を広げて読みやすく */
+  font-size: 1.9em;            /* 少し小さめの文字サイズにする */
+  overflow-wrap: break-word;  /* 長い単語でも折り返す */
 }
+
 

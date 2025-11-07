@@ -70,9 +70,8 @@ function App() {
             <pre>{JSON.stringify(data, null, 2)}</pre>
           </div>
         )}
-      {response && (
-        <p className="api-response">{response}</p>
-      )}
+      
+      <p className="api-response">{response}</p>
       </header>
     </div>
   );
