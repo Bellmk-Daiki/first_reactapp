@@ -2,6 +2,10 @@ import logo from './sopass.png';
 import React, { useState } from "react";
 import './App.css';
 
+const endpoint = "https://g5c0tc5vy3.execute-api.ap-northeast-1.amazonaws.com/test/";
+const apikey = "AlP0oXHoy46V8LgHYoavg6rFJBge1VW35jAvbuV9";
+
+
 function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -13,9 +17,6 @@ function App() {
   const handleClick = async () => {
     setLoading(true);
     setError(null);
-
-    const endpoint = "https://g5c0tc5vy3.execute-api.ap-northeast-1.amazonaws.com/test/";
-    const apikey = "AlP0oXHoy46V8LgHYoavg6rFJBge1VW35jAvbuV9";
 
     try {
       const res = await fetch(endpoint, {

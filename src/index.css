@@ -12,6 +12,23 @@ code {
     monospace;
 }
 
+pre {
+  max-width: 90vw;       /* ビューポートの90%までに制限 */
+  overflow-wrap: break-word;
+  white-space: pre-wrap; /* 折り返しを許可 */
+  word-break: break-word;
+}
+
+
+.App {
+  width: 100%;
+  max-width: 100vw;   /* ビューポートの90%までに制限 */
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
 .api-button {
   width: 110px;
   height: 40px;
@@ -19,14 +36,15 @@ code {
   padding: 8px 16px;
 }
 
+
 .api-response {
-  white-space: pre-wrap;       /* 改行と空白を保持しつつ折り返す */
-  word-break: break-word;      /* 単語の途中でも折り返す */
-  max-width: 40%;              /* 横幅を制限して読みやすくする */
-  margin: 20px auto;           /* 中央寄せ */
-  line-height: 1.6;            /* 行間を広げて読みやすく */
-  font-size: 1.9em;            /* 少し小さめの文字サイズにする */
-  overflow-wrap: break-word;  /* 長い単語でも折り返す */
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 60ch;         /* 約60文字分の幅で折り返す */
+  margin: 20px auto;
+  line-height: 1.6;
+  font-size: 0.9em;
 }
+
 
 
