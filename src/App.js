@@ -5,13 +5,12 @@ import './App.css';
 const endpoint = "https://g5c0tc5vy3.execute-api.ap-northeast-1.amazonaws.com/test/";
 const apikey = "AlP0oXHoy46V8LgHYoavg6rFJBge1VW35jAvbuV9";
 
-
 function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [inputText, setInputText] = useState("こんにちわんこそば");
+  const [inputText, setInputText] = useState("簡潔に自己紹介して");
   const [response, setResponse] = useState("");
 
   const handleClick = async () => {
