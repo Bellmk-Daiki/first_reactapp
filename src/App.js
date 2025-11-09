@@ -1,4 +1,4 @@
-import logo from './sopass.png';
+import logo from './cpu.png';
 import React, { useState } from "react";
 import './App.css';
 
